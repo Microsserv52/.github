@@ -1,4 +1,4 @@
-# Microserv52
+# Microsserv52
 
 Microserv52 is a microservices platform for buying and selling products. The
 project combines APIs for products, orders, accounts, authentication and
@@ -38,3 +38,28 @@ they are part of the current deployment.
 - GitHub Actions for documentation delivery.
 - Metrics, logs and traces for observability with Grafana.
 
+Microsserv52 is a Spring Boot microservices platform composed of independently
+versioned repositories:
+
+- [platform](https://github.com/Microsserv52/platform): integration,
+  Compose/Kubernetes, Nginx, and deployment coordination.
+- [account](https://github.com/Microsserv52/account): account and credential
+  ownership.
+- [auth](https://github.com/Microsserv52/auth): JWT authentication.
+- [gateway](https://github.com/Microsserv52/gateway): authenticated routing.
+- [order-service](https://github.com/Microsserv52/order-service): order
+  implementation.
+- [order](https://github.com/Microsserv52/order): reusable Java contract.
+
+Every runnable service owns lint, formatting checks, tests, coverage quality
+gates, CodeQL security analysis, and GHCR image publishing. Images use
+immutable `sha-<commit>` tags. The platform workflow pulls those images for
+integration validation and only builds an image when the matching commit tag
+does not exist.
+
+Environment values are never committed. Local values belong in the platform
+`.env`; GitHub Actions values belong in each repository's **Settings →
+Secrets and variables → Actions**; Kubernetes values belong in
+`platform-secrets` or the configured cloud secret manager. See the platform
+[README](https://github.com/Microsserv52/platform#environment-variables) for
+the complete variable map and deployment instructions.
