@@ -169,6 +169,15 @@ required to read or clone the source.
 Product and Exchange remain external integration prerequisites in the current
 platform checkout. The current order implementation supports USD totals.
 
+## Planned staging — TODO
+
+A [developer-only staging environment](https://github.com/Microsserv52/platform/blob/main/docs/infrastructure/staging.md)
+is planned with smaller fixed copies of production business services, scheduled
+availability and synthetic seed data. Cloudflare Zero Trust Access will protect
+it; Grafana Cloud observability is separate, Faro errors remain enabled and
+Umami/usage analytics are disabled. The plan is documented; implementation,
+budget, schedule, hosting, domain and CDN choices remain TODO.
+
 ## Engineering and operations
 
 - Java/Spring Boot services, Docker Compose and Kubernetes/AWS EKS for the backend.
