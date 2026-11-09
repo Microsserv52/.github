@@ -8,7 +8,7 @@ take place, and no goods are shipped.**
 
 ## Web applications
 
-Three private repositories are integrated as Git submodules in the platform.
+Three public repositories are integrated as Git submodules in the platform.
 Each is an independent Next.js/TypeScript static export, served under one domain.
 
 | Repository                                         | Platform path | Public path | Experience                                                                           |
@@ -35,7 +35,8 @@ environments until that service is implemented and accepted.
 
 See the [frontend documentation](https://github.com/Microsserv52/platform/blob/main/docs/frontend/index.md)
 for scope, package versions, routing, browser sessions, local testing and evidence.
-The source repositories are private and require organization access.
+All ten Microsserv52 repositories are public; no organization membership is
+required to read or clone the source.
 
 ## Backend repositories
 
