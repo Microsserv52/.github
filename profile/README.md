@@ -69,8 +69,18 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-FAB040?style=flat&logo=precommit&logoColor=white)](https://pre-commit.com/)
 [![k6](https://img.shields.io/badge/k6-7D64FF?style=flat&logo=k6&logoColor=white)](https://grafana.com/oss/k6/)
 
-**Health and browser observability**
+**Observability and analytics; Grafana Cloud selected, rollout pending**
 
+[![Grafana Cloud](https://img.shields.io/badge/Grafana_Cloud-F46800?style=flat&logo=grafana&logoColor=white)](https://grafana.com/products/cloud/)
+[![Grafana Mimir](https://img.shields.io/badge/Grafana_Mimir-F46800?style=flat&logo=grafana&logoColor=white)](https://grafana.com/oss/mimir/)
+[![Grafana Loki](https://img.shields.io/badge/Grafana_Loki-F46800?style=flat&logo=grafana&logoColor=white)](https://grafana.com/oss/loki/)
+[![Grafana Tempo](https://img.shields.io/badge/Grafana_Tempo-F46800?style=flat&logo=grafana&logoColor=white)](https://grafana.com/oss/tempo/)
+[![Grafana Pyroscope](https://img.shields.io/badge/Grafana_Pyroscope-F46800?style=flat&logo=grafana&logoColor=white)](https://grafana.com/oss/pyroscope/)
+[![Grafana Alloy](https://img.shields.io/badge/Grafana_Alloy-F46800?style=flat&logo=grafana&logoColor=white)](https://grafana.com/oss/alloy/)
+[![OpenTelemetry](https://img.shields.io/badge/OpenTelemetry-425CC7?style=flat&logo=opentelemetry&logoColor=white)](https://opentelemetry.io/)
+[![Graphite](https://img.shields.io/badge/Graphite-000000?style=flat&logo=graphite&logoColor=white)](https://graphiteapp.org/)
+[![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=flat&logo=prometheus&logoColor=white)](https://prometheus.io/)
+[![Grafana](https://img.shields.io/badge/Grafana-F46800?style=flat&logo=grafana&logoColor=white)](https://grafana.com/)
 [![Spring Actuator](https://img.shields.io/badge/Spring_Actuator-6DB33F?style=flat&logo=springboot&logoColor=white)](https://docs.spring.io/spring-boot/reference/actuator/index.html)
 [![Grafana Faro](https://img.shields.io/badge/Grafana_Faro-F46800?style=flat&logo=grafana&logoColor=white)](https://grafana.com/oss/faro/)
 [![Umami](https://img.shields.io/badge/Umami-000000?style=flat&logo=umami&logoColor=white)](https://umami.is/)
@@ -86,19 +96,25 @@
 [![Amazon CloudFront](https://img.shields.io/badge/Amazon_CloudFront-8C4FFF?style=flat)](https://aws.amazon.com/cloudfront/)
 [![AWS SDK](https://img.shields.io/badge/AWS_SDK-FF9900?style=flat)](https://aws.amazon.com/developer/tools/)
 
-**Evaluated or requested; not implemented**
+**Cloudflare security; selected, configuration pending**
 
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=flat&logo=cloudflare&logoColor=white)](https://www.cloudflare.com/)
+[![Cloudflare WAF](https://img.shields.io/badge/Cloudflare_WAF-F38020?style=flat&logo=cloudflare&logoColor=white)](https://developers.cloudflare.com/waf/)
+[![Cloudflare Tunnel](https://img.shields.io/badge/Cloudflare_Tunnel-F38020?style=flat&logo=cloudflare&logoColor=white)](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/)
+[![DDoS Protection](https://img.shields.io/badge/DDoS_Protection-F38020?style=flat&logo=cloudflare&logoColor=white)](https://developers.cloudflare.com/ddos-protection/)
+
+**Kafka proposal and optional storage alternative; not implemented**
+
 [![Cloudflare R2](https://img.shields.io/badge/Cloudflare_R2-F38020?style=flat&logo=cloudflare&logoColor=white)](https://developers.cloudflare.com/r2/)
 [![Apache Kafka](https://img.shields.io/badge/Apache_Kafka-231F20?style=flat&logo=apachekafka&logoColor=white)](https://kafka.apache.org/)
-[![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=flat&logo=prometheus&logoColor=white)](https://prometheus.io/)
-[![Grafana](https://img.shields.io/badge/Grafana-F46800?style=flat&logo=grafana&logoColor=white)](https://grafana.com/)
 
-Redis has local infrastructure and endpoint wiring; service-level caching is pending. Faro and Umami are integrated but collection is disabled by default. The Store PWA is online-only: it has a manifest and icons, with no offline service worker.
+Redis is selected for a dedicated Cart service: carts expire seven days after the last change; reads do not renew TTL. The service is not implemented yet; the current Store still uses browser storage. Existing Redis endpoint wiring does not provide carts or service-level caching. The Store PWA remains online-only.
 
 AWS/EKS/ECR deployment configuration and the VPC/RDS target architecture are documented; this does not mean cloud resources are provisioned. S3 + CloudFront and the AWS SDK are approved for the future Product backend; real image persistence is pending.
 
-Cloudflare/R2 remain evaluated alternatives, not a selected frontend CDN or replacement for S3. Kafka is requested for the roadmap and is not implemented or installed. Prometheus and Grafana dashboards are documented observability options; their backend deployment is pending. Frontend CDN selection and environment values still require a deployment decision.
+Grafana Cloud is selected for observability: Prometheus-compatible/Mimir metrics, Loki logs, Tempo traces, Pyroscope profiles, Faro, OpenTelemetry/Alloy and Graphite support. New metrics should use Prometheus/OTel; Graphite is available for Graphite-format producers. Collection and cloud provisioning remain pending. Umami stays a separate analytics integration. Cloudflare is selected for DDoS protection, WAF and Tunnel; its security role does not choose the frontend CDN or domain, both of which remain open. Cloudflare R2 is still only an alternative, not a replacement for approved S3 storage. Kafka placement is proposed for post-order events and later Product background work; no broker or client is implemented.
+
+Architecture details: [Grafana Cloud](https://github.com/Microsserv52/platform/blob/main/docs/operations/observability.md), [Cart service](https://github.com/Microsserv52/platform/blob/main/docs/services/cart/index.md), [Kafka proposals](https://github.com/Microsserv52/platform/blob/main/docs/project/asynchronous-events.md) and [Cloudflare security](https://github.com/Microsserv52/platform/blob/main/docs/infrastructure/cloudflare.md). Domain and frontend CDN remain undecided.
 
 Microsserv52 is an educational microservices platform for browsing products and
 creating demo orders. **This is a mock store: no real payments or transactions
@@ -119,8 +135,8 @@ Each is an independent Next.js/TypeScript static export, served under one domain
 
 The English UI uses shared branding, MUI/Emotion and Tailwind CSS, with TanStack
 Query/Table and React Hook Form/Zod. The store has an online-only PWA manifest.
-Grafana Faro and Umami are integrated and disabled until collection values and
-hosting are agreed. antislop is applied during implementation with real UI
+Grafana Faro targets the selected Grafana Cloud stack; Umami remains a separate
+analytics integration. Both stay disabled until collection values and policy are agreed. antislop is applied during implementation with real UI
 reference research.
 
 Each app has a Dockerfile for local testing. A separate, explicitly labeled
@@ -133,7 +149,7 @@ remove controls. S3 + CloudFront is selected; the required backend changes are
 saved for the future Product repository. Uploads stay disabled in normal
 environments until that service is implemented and accepted.
 
-See the [frontend documentation](https://github.com/Microsserv52/platform/blob/main/docs/frontend/index.md)
+See the [frontend documentation](https://github.com/Microsserv52/platform/blob/main/docs/frontend/overview.md)
 for scope, package versions, routing, browser sessions, local testing and evidence.
 All ten Microsserv52 repositories are public; no organization membership is
 required to read or clone the source.
