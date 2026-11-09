@@ -27,9 +27,13 @@ Each app has a Dockerfile for local testing. A separate, explicitly labeled
 fixture Compose environment permits UI testing without Product/Exchange images.
 Production frontends will use CDN hosting with per-app environment values;
 provider and configuration are deferred, as is frontend Kubernetes deployment.
-The implementation is on review branches and is not a production deployment.
+The initial implementation is merged and is not a production deployment.
+The image extension uses URL-based catalog rendering and admin upload/replace/
+remove controls. S3 + CloudFront is selected; the required backend changes are
+saved for the future Product repository. Uploads stay disabled in normal
+environments until that service is implemented and accepted.
 
-See the [frontend documentation](https://github.com/Microsserv52/platform/blob/feature/frontend-applications/docs/frontend/index.md)
+See the [frontend documentation](https://github.com/Microsserv52/platform/blob/main/docs/frontend/index.md)
 for scope, package versions, routing, browser sessions, local testing and evidence.
 The source repositories are private and require organization access.
 
