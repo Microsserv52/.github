@@ -110,9 +110,9 @@
 
 Redis is selected for a dedicated Cart service: carts expire seven days after the last change; reads do not renew TTL. The service is not implemented yet; the current Store still uses browser storage. Existing Redis endpoint wiring does not provide carts or service-level caching. The Store PWA remains online-only.
 
-AWS/EKS/ECR deployment configuration and the VPC/RDS target architecture are documented; this does not mean cloud resources are provisioned. S3 + CloudFront and the AWS SDK are approved for the future Product backend; real image persistence is pending.
+AWS/EKS/ECR deployment configuration and the VPC/RDS target architecture are documented; this does not mean cloud resources are provisioned. S3 storage and the AWS SDK are approved for the future Product backend; real image persistence is pending. CloudFront is the current image-delivery design baseline; a possible CDN move to Cloudflare remains open.
 
-Grafana Cloud is selected for observability: Prometheus-compatible/Mimir metrics, Loki logs, Tempo traces, Pyroscope profiles, Faro, OpenTelemetry/Alloy and Graphite support. New metrics should use Prometheus/OTel; Graphite is available for Graphite-format producers. Collection and cloud provisioning remain pending. Umami stays a separate analytics integration. Cloudflare is selected for DDoS protection, WAF and Tunnel; its security role does not choose the frontend CDN or domain, both of which remain open. Cloudflare R2 is still only an alternative, not a replacement for approved S3 storage. Kafka placement is proposed for post-order events and later Product background work; no broker or client is implemented.
+Grafana Cloud is selected for observability: Prometheus-compatible/Mimir metrics, Loki logs, Tempo traces, Pyroscope profiles, Faro, OpenTelemetry/Alloy and Graphite support. New metrics should use Prometheus/OTel; Graphite is available for Graphite-format producers. Collection and cloud provisioning remain pending. Umami stays a separate analytics integration. Cloudflare is selected for DDoS protection, WAF and Tunnel; its security role does not choose the frontend CDN, a CloudFront-to-Cloudflare delivery migration or the domain; those decisions remain open. Cloudflare R2 is still only an alternative, not a replacement for approved S3 storage. Kafka placement is proposed for post-order events and later Product background work; no broker or client is implemented.
 
 Architecture details: [Grafana Cloud](https://github.com/Microsserv52/platform/blob/main/docs/operations/observability.md), [Cart service](https://github.com/Microsserv52/platform/blob/main/docs/services/cart/index.md), [Kafka proposals](https://github.com/Microsserv52/platform/blob/main/docs/project/asynchronous-events.md) and [Cloudflare security](https://github.com/Microsserv52/platform/blob/main/docs/infrastructure/cloudflare.md). Domain and frontend CDN remain undecided.
 
@@ -145,7 +145,8 @@ Production frontends will use CDN hosting with per-app environment values;
 provider and configuration are deferred, as is frontend Kubernetes deployment.
 The initial implementation is merged and is not a production deployment.
 The image extension uses URL-based catalog rendering and admin upload/replace/
-remove controls. S3 + CloudFront is selected; the required backend changes are
+remove controls. S3 storage is selected and CloudFront is the current delivery
+baseline; a possible CDN move to Cloudflare remains open. Backend changes are
 saved for the future Product repository. Uploads stay disabled in normal
 environments until that service is implemented and accepted.
 
