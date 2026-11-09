@@ -1,65 +1,60 @@
 # Microsserv52
 
-Microserv52 is a microservices platform for buying and selling products. The
-project combines APIs for products, orders, accounts, authentication and
-currency exchange with cloud deployment, CI/CD, observability and performance
-testing.
+Microsserv52 is an educational microservices platform for browsing products and
+creating demo orders. **This is a mock store: no real payments or transactions
+take place, and no goods are shipped.**
 
-[Read the complete documentation on GitHub Pages](https://microsserv52.github.io/platform/)
+[Read the project documentation](https://microsserv52.github.io/platform/)
 
-## Platform
+## Web applications
 
-The platform uses a gateway as the public entry point. Authenticated requests
-are routed to independent services, while Order integrates with Product for
-prices and Exchange for currency conversion.
+Three private repositories are integrated as Git submodules in the platform.
+Each is an independent Next.js/TypeScript static export, served under one domain.
 
-## Main repositories
+| Repository                                         | Platform path | Public path | Experience                                                                           |
+| -------------------------------------------------- | ------------- | ----------- | ------------------------------------------------------------------------------------ |
+| [landing](https://github.com/Microsserv52/landing) | `web/landing` | `/`         | Demo introduction, catalog preview, privacy/diagnostics and project documentation    |
+| [store](https://github.com/Microsserv52/store)     | `web/store`   | `/store/`   | Public catalog search/sort, guest cart, login/register and authenticated demo orders |
+| [admin](https://github.com/Microsserv52/admin)     | `web/admin`   | `/admin/`   | Restricted product creation/deletion, account details and observability links        |
 
-| Repository | Description |
-| --- | --- |
-| [platform](https://github.com/Microsserv52/platform) | Integration repository, architecture, Docker Compose and documentation |
-| [gateway](https://github.com/Microsserv52/gateway) | Public API gateway and request routing |
-| [order](https://github.com/Microsserv52/order) | Java Order API |
-| [order-service](https://github.com/Microsserv52/order-service) | Order service integration layer |
-| [product](https://github.com/Microsserv52/product) | Product catalogue API |
-| [exchange](https://github.com/Microsserv52/exchange) | Currency exchange API |
-| [account](https://github.com/Microsserv52/account) | Account management service |
-| [auth](https://github.com/Microsserv52/auth) | Authentication and authorization service |
+The English UI uses shared branding, MUI/Emotion and Tailwind CSS, with TanStack
+Query/Table and React Hook Form/Zod. The store has an online-only PWA manifest.
+Grafana Faro and Umami are integrated and disabled until collection values and
+hosting are agreed. antislop is applied during implementation with real UI
+reference research.
 
-The `platform` repository integrates service repositories as Git submodules when
-they are part of the current deployment.
+Each app has a Dockerfile for local testing. A separate, explicitly labeled
+fixture Compose environment permits UI testing without Product/Exchange images.
+Production frontends will use CDN hosting with per-app environment values;
+provider and configuration are deferred, as is frontend Kubernetes deployment.
+The implementation is on review branches and is not a production deployment.
 
-## Technology and operations
+See the [frontend documentation](https://github.com/Microsserv52/platform/blob/feature/frontend-applications/docs/frontend/index.md)
+for scope, package versions, routing, browser sessions, local testing and evidence.
+The source repositories are private and require organization access.
 
-- Java and Spring Boot for the Order service.
-- Python and FastAPI for the Exchange service.
-- Docker Compose for local integration.
-- AWS and Amazon EKS for cloud deployment.
-- GitHub Actions for documentation delivery.
-- Metrics, logs and traces for observability with Grafana.
+## Backend repositories
 
-Microsserv52 is a Spring Boot microservices platform composed of independently
-versioned repositories:
+| Repository                                                     | Responsibility                                                                |
+| -------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| [platform](https://github.com/Microsserv52/platform)           | Git submodules, integration, Compose/Kubernetes, deployment and documentation |
+| [gateway](https://github.com/Microsserv52/gateway)             | Business API routing, browser sessions, JWT/CSRF and public access boundary   |
+| [account](https://github.com/Microsserv52/account)             | Registration, authenticated own profile and admin-restricted account reads    |
+| [auth](https://github.com/Microsserv52/auth)                   | Login and JWT issuance                                                        |
+| [order](https://github.com/Microsserv52/order)                 | Reusable Java Order API contract                                              |
+| [order-service](https://github.com/Microsserv52/order-service) | Demo order persistence, ownership and service-calculated totals               |
 
-- [platform](https://github.com/Microsserv52/platform): integration,
-  Compose/Kubernetes, Nginx, and deployment coordination.
-- [account](https://github.com/Microsserv52/account): account and credential
-  ownership.
-- [auth](https://github.com/Microsserv52/auth): JWT authentication.
-- [gateway](https://github.com/Microsserv52/gateway): authenticated routing.
-- [order-service](https://github.com/Microsserv52/order-service): order
-  implementation.
-- [order](https://github.com/Microsserv52/order): reusable Java contract.
+Product and Exchange remain external integration prerequisites in the current
+platform checkout. The current order implementation supports USD totals.
 
-Every runnable service owns lint, formatting checks, tests, coverage quality
-gates, CodeQL security analysis, and GHCR image publishing. Images use
-immutable `sha-<commit>` tags. The platform workflow pulls those images for
-integration validation and only builds an image when the matching commit tag
-does not exist.
+## Engineering and operations
 
-Environment values are never committed. Local values belong in the platform
-`.env`; GitHub Actions values belong in each repository's **Settings →
-Secrets and variables → Actions**; Kubernetes values belong in
-`platform-secrets` or the configured cloud secret manager. See the platform
-[README](https://github.com/Microsserv52/platform#environment-variables) for
-the complete variable map and deployment instructions.
+- Java/Spring Boot services, Docker Compose and Kubernetes/AWS EKS for the backend.
+- Independent repository checks, tests, CodeQL configuration and immutable
+  `sha-<commit>` container publishing; platform-owned integration validation.
+- Zensical documentation and recorded verification evidence.
+- Secrets stay out of source. Local values belong in `.env`; CI values in
+  repository Actions secrets/variables; backend cluster values in the configured
+  secret store. Public frontend build variables must never contain secrets.
+
+See the [platform configuration guide](https://github.com/Microsserv52/platform#cicd-and-environment-variables).
