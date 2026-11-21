@@ -87,7 +87,7 @@ flowchart LR
   Grafana, Alloy and blackbox. Java services use the OpenTelemetry agent; the
   frontends use Faro.
 - **AWS edge:** Shield Standard, CloudFront OAC, security groups and an optional
-  AWS WAF. WAF is documented but not attached. Cloudflare is not used.
+  AWS WAF. WAF is prepared but not attached. Cloudflare is not used.
 
 ## Service observability requirements
 
