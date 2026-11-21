@@ -1,5 +1,7 @@
 # Microsserv52
 
+![Tech Stack](https://skillicons.dev/icons?i=java,spring,python,nextjs,typescript,postgres,redis,docker,kubernetes,terraform,aws,grafana,prometheus)
+
 Microsserv52 is an educational microservices platform for browsing products and
 creating demo orders. **This is a mock store: no real payments or transactions
 take place, and no goods are shipped.**
