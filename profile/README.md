@@ -87,7 +87,7 @@ flowchart LR
   Grafana, Alloy and blackbox. Java services use the OpenTelemetry agent; the
   frontends use Faro.
 - **AWS edge:** Shield Standard, CloudFront OAC, security groups and an optional
-  AWS WAF. WAF is prepared but not attached. Cloudflare is not used.
+  AWS WAF. WAF is prepared but not attached.
 
 ## Service observability requirements
 
@@ -143,7 +143,7 @@ The local frontends use `http://localhost:8080/faro/collect`; nginx forwards
   Actions secrets/variables. Grafana credentials are designed for AWS Secrets
   Manager; the live account does not have the observability stack yet.
 - AWS observability manifests and Terraform are prepared but **not deployed**.
-  The live account has no `observability` namespace and no WAF web ACL.
+  The live account has no `observability` namespace; no WAF web ACL is attached.
 
 ## Documentation
 
